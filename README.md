@@ -2,11 +2,23 @@
 
 # שאלות הכנה לראיון עבודה בג׳אווה סקריפט , אהבתם ? תנו ⭐
 
+<div dir="rtl">
 
 | No.      | Question |
 | ----------- | ----------- |
 | 1      | [מהם הדרכים האפשריות ליצור אובייקיט בjs](#ש-מהם-הדרכים-האפשריות-ליצור-אובייקט-בjs)       |
-| Paragraph   | Text        |
+| 2   | [prototype chain מהו ה?](#שמהו-הprototype-chain-)        |
+| 3   | [Call,Apply,Bind מה ההבדל בין ? ](#שמה-ההבדל-בין-callapplybind-) |
+| 4   | [מהו JSON ומהם הפעולות הנפוצות שלו](#ש-מהו-json-ומהם-הפעולות-הנפוצות-שלו-)|
+| 5   | [למה משמשת הפונקציה Slice?](#ש-למה-משמשת-הפונקציה-slice-)|
+| 6   | [למה משמשת הפונקציה Splice ?](#ש-למה-משמשת-הפונקציה-splice-)|
+| 7   | []()|
+| 8   | []()|
+| 9   | []()|
+| 10  | []()|
+| 11  | []()|
+
+</div>
 
 ## ש. מהם הדרכים האפשריות ליצור אובייקט בJS?
 
@@ -115,5 +127,145 @@ var object = new (function () {
 ```
 
 
+## ש.מהו הprototype chain ?
 
+שרשרת פרוטוטייפ משמשת לבניה של סוגי אובייקטים חדשים אשר מתבססים על אובייקטים קיימים. זה דומה לירושה בשפות מבוססות מחלקות.
+
+הפרוטוטייפ של מופע של אובייקט זמין דרך Object.getProtoTypeOf(object).
+
+
+## ש.מה ההבדל בין Call,Apply,Bind ?
+
+**Call** :  הפונקציה Call מפעילה פונקציה עם Owner Object כפרמטר , ופרמטרים נוספים שמועברים אחד אחד.
+
+
+```js
+
+var employee1 = { firstName: "John", lastName: "Rodson" };
+var employee2 = { firstName: "Jimmy", lastName: "Baily" };
+
+function invite(greeting1, greeting2) {
+  console.log(
+    greeting1 + " " + this.firstName + " " + this.lastName + ", " + greeting2
+  );
+}
+
+invite.call(employee1, "Hello", "How are you?"); // Hello John Rodson, How are you?
+invite.call(employee2, "Hello", "How are you?"); // Hello Jimmy Baily, How are you?
+
+
+
+
+```
+
+
+**Apply**: דומה לCall רק שכאן הארגומטים מסופקים כמערך 
+
+```js
+
+var employee1 = { firstName: "John", lastName: "Rodson" };
+var employee2 = { firstName: "Jimmy", lastName: "Baily" };
+
+function invite(greeting1, greeting2) {
+  console.log(
+    greeting1 + " " + this.firstName + " " + this.lastName + ", " + greeting2
+  );
+}
+
+invite.apply(employee1, ["Hello", "How are you?"]); // Hello John Rodson, How are you?
+invite.apply(employee2, ["Hello", "How are you?"]); // Hello Jimmy Baily, How are you?
+
+
+
+```
+
+
+**Bind** : מחזיר פונקציה חדשה , מה שמאפשר להעביר מספר ארגומנטים כרצוננו.
+
+
+```js
+
+var employee1 = { firstName: "John", lastName: "Rodson" };
+var employee2 = { firstName: "Jimmy", lastName: "Baily" };
+
+function invite(greeting1, greeting2) {
+  console.log(
+    greeting1 + " " + this.firstName + " " + this.lastName + ", " + greeting2
+  );
+}
+
+var inviteEmployee1 = invite.bind(employee1);
+var inviteEmployee2 = invite.bind(employee2);
+inviteEmployee1("Hello", "How are you?"); // Hello John Rodson, How are you?
+inviteEmployee2("Hello", "How are you?"); // Hello Jimmy Baily, How are you?
+
+
+
+```
+
+Call וApply די ניתנים להחלפה , שניהם מבצעים את הקוד באופן מיידי.המפתח צריך להחליט האם קל יותר עבורו להעביר את הפרמטרים אחד אחד או במערך.
+בעוד Bind יוצרת פונקציה חדשה שתגדיר את this להיות הפרמטר הראשון שמועבר אליה.
+
+
+## ש. מהו JSON ומהם הפעולות הנפוצות שלו ? 
+
+ת.JSON לוקח את המבנה הפשוט של אובייקט JavaScript 
+ומשתמש בו לאחסון מידע בפורמט שכל שפות המחשב יודעות לעבוד איתו.
+
+העובדה שהמבנה של JSON זהה בכל שפות המחשב מאפשר לנו להעביר מידע בין מחשבים ללא קשר לשפה שבה כתובה האפליקציה. בהתאם לכך, רוב ה-API המודרניים שדרכם אנחנו מקבלים שירותים ברשת האינטרנט, דוגמת: מפות גוגל, אפליקציות מזג אוויר, או מערכות תשלומים משתמשים ב-JSON.
+
+
+**Parsing:** ממיר סטרינג לאובייקט 
+
+```js
+
+
+JSON.parse(text);
+
+```
+
+**Stringification:** ממיר אובייקט לסטרינג כדי שנוכל להעביר אותו ברשת
+
+
+```js
+
+JSON.stringify(object);
+
+```
+
+
+## ש. למה משמשת הפונקציה Slice ? 
+
+ת. הפונקציה Slice() מחזירה את האלמנטים הנבחרים במערך כאובייקט מערך חדש. היא בוחרת את האלמנטים שמתחילים בארגומנט ההתחלה הנתון ומסתיימת בארגומנט הסיום האופציונלי מבלי לכלול את האלמנט האחרון . אם לא מעבירים ארגומנט שני אזי הוא בוחר עד הסוף.
+
+```js
+
+let arrayIntegers = [1, 2, 3, 4, 5];
+let arrayIntegers1 = arrayIntegers.slice(0, 2); // returns [1,2]
+let arrayIntegers2 = arrayIntegers.slice(2, 3); // returns [3]
+let arrayIntegers3 = arrayIntegers.slice(4); //returns [5]
+
+
+```
+
+נשים לב הפונקציה slice לא משנה את המערך המקורי אלא מחזירה תת מערך חדש.
+
+## ש. למה משמשת הפונקציה Splice ? 
+ת. הפונקציה Splice משמשת להוספה/מחיקה של איברים מ/ל מערך ולאחר מכן מחזירה את האיבר שהוסר.
+הארגומנט הראשון מציין את המיקום שבו נרצה להכניס / ממנו נרצה למחוק את האיבר , הארגומנט השני או אופציונלי והוא מציין מספר האלמנטים שנרצה למחוק . כל ארגומנט נוסף יתווסף למערך.
+
+
+```js
+
+let arrayIntegersOriginal1 = [1, 2, 3, 4, 5];
+let arrayIntegersOriginal2 = [1, 2, 3, 4, 5];
+let arrayIntegersOriginal3 = [1, 2, 3, 4, 5];
+
+let arrayIntegers1 = arrayIntegersOriginal1.splice(0, 2); // returns [1, 2]; original array: [3, 4, 5]
+let arrayIntegers2 = arrayIntegersOriginal2.splice(3); // returns [4, 5]; original array: [1, 2, 3]
+let arrayIntegers3 = arrayIntegersOriginal3.splice(3, 1, "a", "b", "c"); //returns [4]; original array: [1, 2, 3, "a", "b", "c", 5]
+
+```
+
+נשים לב שהפונקציה Splice משנה את המערך המקורי ומחזירה מערך עם האיברים שנמחקו.
 
