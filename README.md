@@ -14,9 +14,15 @@
 | 6   | [למה משמשת הפונקציה Splice ?](#ש-למה-משמשת-הפונקציה-splice-)|
 | 7   | [מה ההבדל בין האופרטר == ל===?](#ש-מה-ההבדל-בין-האופרטר--ל)|
 | 8   | [מהם Arrow functions ?](#ש-מהם-arrow-functions-)|
-| 9   | []()|
-| 10  | []()|
-| 11  | []()|
+| 9   | [מהו first class function ?](#ש-מהו-first-class-function-)|
+| 10  | [מהי high order function?](#ש-מהי-high-order-function)|
+| 11  | [מהי פונקציה אונרית (unary function) ?](#ש-מהי-פונקציה-אונרית-unary-function-)|
+| 12  | [מהי Currying function ?](#ש-מהי-currying-function-)|
+| 13  | []()|
+| 14  | []()|
+| 15  | []()|
+| 16  | []()|
+| 17  | []()|
 
 </div>
 
@@ -339,3 +345,77 @@ document.addEventListener("click", handler);
 
 ```
 
+## ש. מהי first order function ? 
+ת. First-order function היא פונקציה שלא מקבלת פונקציה כפרמטר ולא מחזירה פונקציה . 
+
+```js
+
+const firstOrder = () => console.log("I am a first order function!");
+
+```
+## ש. מהי high order function? 
+
+ת. High-Order function זו פונקציה שמקבלת פונקציה כפרמטר או מחזירה פונקציה או שניהם יחד.
+
+```js
+
+
+const firstOrderFunc = () =>
+  console.log("Hello, I am a First order function");
+const higherOrder = (ReturnFirstOrderFunc) => ReturnFirstOrderFunc();
+higherOrder(firstOrderFunc);
+
+
+```
+
+
+
+## ש. מהי פונקציה אונרית (unary function) ?
+
+פונקציה אונרית היא פונקציה שמקבלת בדיוק ארגומנט אחד .
+
+```js
+
+const unaryFunction = (a) => console.log(a + 10); // Add 10 to the given argument and display the value
+
+
+```
+
+## ש. מהי Currying function ?
+
+ת.Currying זהו תהליך שבו לוקחים פונקציה שמקבלת מספר פרמטרים והופכים אותה לסדרת פונקציות שכל אחת מהן מקבלת פרמטר אחד . Currying נקרא על שם המתטיקאי הסקל קורי .
+```js
+
+const multiArgFunction = (a, b, c) => a + b + c;
+console.log(multiArgFunction(1, 2, 3)); // 6
+
+const curryUnaryFunction = (a) => (b) => (c) => a + b + c;
+curryUnaryFunction(1); // returns a function: b => c =>  1 + b + c
+curryUnaryFunction(1)(2); // returns a function: c => 3 + c
+curryUnaryFunction(1)(2)(3); // returns the number 6
+
+
+```
+
+## ש. מהי פונקציה טהורה ( Pure fucntion ) ? 
+ת. פונקציה טהורה היא פונקציה שהערך המוחזר שלה נקבע ע"י הפרמטרים שלה בלבד , כלומר אם נקרא לפונקציה x פעמים מx מקומות בתכנית היא תמיד תחזיר את אותו הערך . 
+
+```js
+
+//Impure
+let numberArray = [];
+const impureAddNumber = (number) => numberArray.push(number);
+//Pure
+const pureAddNumber = (number) => (argNumberArray) =>
+  argNumberArray.concat([number]);
+
+//Display the results
+console.log(impureAddNumber(6)); // returns 1
+console.log(numberArray); // returns [6]
+console.log(pureAddNumber(7)(numberArray)); // returns [6, 7]
+console.log(numberArray); // returns [6]
+
+
+
+
+```
