@@ -421,6 +421,45 @@ console.log(numberArray); // returns [6]
 בעוד שConcat לוקחת את המערכים , משרשרת אותם ומחזירה מערך משורשר ללא תופעות לוואי (side effects) , המערך המוחזר הוא שרשור של המערך הקודם.
 
 
+## ש. מהו מנגון הHoisting ?
+
+ת. Hoisting בג'אווה סקריפט זהו מנגון שבו , הצהרות על משתנים ,פונקציות ומחלקות מועברות לתחילת הסקופ שלהם לפני ביצוע הקוד. צריך לזכור שהמנגון עובד על הצהרות לא על אתחולים. נראה כמה דוגמאות פשוטות :
+
+```js
+
+// program to display value
+a = 5;
+console.log(a);// יודפס 5
+var a; // 5
+
+```
+בדוגמה לעיל ניתן לראות שהכרזנו על a אחרי הlog ועדיין הודפס 5.
+
+כלומר המפרשן (interpeter) רואה את זה כך :
+
+```js
+
+// program to display value
+var a;
+a = 5;
+console.log(a); // 5
+
+
+```
+
+כאמור המנגון אינו עובד על אתחולים ולכן התוצאה של הקוד הבא יהיה undefined :
+
+```js
+
+
+// program to display value
+console.log(a);
+var a = 5;
+
+
+
+```
+
 ## ש. מהו הסקופ (scope) בג'אווה סקריפט ?
 
 ת. הסקופ הוא הנגישות של משתנים , פונקציות ואובייקטים בחלקים מסויימים של התכנית במהלך זמן הריצה. במילים אחרות הסקופ קובע את הנראות של משתנים ומשאבים אחרים באיזורים של הקוד.
@@ -439,12 +478,12 @@ console.log(numberArray); // returns [6]
 
 window.value = 90;
 
-// Declaring global variable by window object
+// הצהרה על משתנה גלובלי באמצעות אובייקט החלון
 function setValue() {
   window.value = 100;
 }
 
-// Accessing global variable from other function
+// גישה למשתנה הגלובלי מפונקציה אחרת
 function getValue() {
   setValue();
   return window.value;
@@ -493,6 +532,39 @@ if (counter === 30) {
   console.log(counter); // 31
 }
 console.log(counter); // 30 (בגלל שהמשתנה בבלוק לא קיים כאן)
+
+
+```
+
+## ש. מה ההבדל בין let לvar ?
+
+נפרט את ההבדלים ע"י טבלה : 
+
+| var      | let |
+| ----------- | ----------- |
+| קיים מההתחלה של ג'אווהסקריפט      | הוצג בגרסה ES6       |
+| סקופ של פונקציה   | סקופ של בלוק        |
+| המשתנים יעברו Hoisting   | המשתנים יעברו Hoisting אבל לא יאותחלו        |
+
+
+
+נראה דוגמה שממחישה את ההבדל :
+
+```js
+function userDetails(username) {
+  if (username) {
+    console.log(salary); // undefined כתוצאה מהHoisting
+    console.log(age); // שגיאת רפרנס: לא ניתן לגשת למשתנה 'age' לפני האתחול
+    let age = 30;
+    var salary = 10000;
+  }
+  console.log(salary); //10000 ניתן לגשת כי לvar יש סקופ של פונקציה
+  console.log(age); //שגיאה , age הוא לא מוגדר כיוון שלlet יש סקופ של בלוק
+}
+userDetails("John");
+
+
+
 
 
 ```
