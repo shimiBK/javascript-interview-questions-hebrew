@@ -19,10 +19,18 @@
 | 11  | [מהי פונקציה אונרית (unary function) ?](#ש-מהי-פונקציה-אונרית-unary-function-)|
 | 12  | [מהי Currying function ?](#ש-מהי-currying-function-)|
 | 13  | [מהי פונקציה טהורה ( Pure fucntion ) ?](#ש-מהי-פונקציה-טהורה--pure-fucntion--)|
-| 14  | [מהו הסקופ (scope) בג'אווה סקריפט ?](#ש-מהו-הסקופ-scope-בגאווה-סקריפט-)|
-| 15  | [מה מטרתה של מילת המפתח let ?](#ש-מה-מטרתה-של-מילת-המפתח-let-)|
-| 16  | []()|
-| 17  | []()|
+| 14  | [מהו מנגון הHoisting ?](#ש-מהו-מנגון-הhoisting-)|
+| 15  | [מהו הסקופ (scope) בג'אווה סקריפט ?](#ש-מהו-הסקופ-scope-בגאווה-סקריפט-)|
+| 16  | [מה מטרתה של מילת המפתח let ?](#ש-מה-מטרתה-של-מילת-המפתח-let-)|
+| 17  | [מה ההבדל בין let לvar ?](#ש-מה-ההבדל-בין-let-לvar-)|
+| 18  | [מהו הTemporal Dead Zone ?](#ש-מהו-הtemporal-dead-zone-)|
+| 19  | [מהי IFFE(Immediately Invoked Function Expression) ?](#ש-מהי-iffeimmediately-invoked-function-expression-)|
+| 20  | []()|
+| 21  | []()|
+| 22  | []()|
+| 23  | []()|
+| 24  | []()|
+| 25  | []()|
 
 </div>
 
@@ -563,8 +571,77 @@ function userDetails(username) {
 }
 userDetails("John");
 
+```
+## ש. מהו הTemporal Dead Zone ?
 
+ת. Temporal Dead Zone זהו התנהגות של ג'אווה סקריפט שקוראת כאשר מכריזים על משתנה עם מילות המפתח let וconst ולא עם var . בECMAscript 6 , אם ניגשים למשתנים שהוכרזו ע"י let או const לפני ההצהרה עליהם ( ובתוך הסקופ שלהם ) גורם לשגיאת רפרנס . טווח הזמן שבו זה קורה , בין יצירת הbinding של המשתנה וההצהרה שלו נקרא הTemporal dead Zone. נראה זאת באמצעות דוגמה:
+
+```js
+function somemethod() {
+  console.log(counter1); // לא מוגדר
+  console.log(counter2); // שגיאת רפרנס
+  var counter1 = 1;
+  let counter2 = 2;
+}
+
+
+```
+
+## ש. מהי IFFE(Immediately Invoked Function Expression) ?
+ת. IFFE היא פונקציה בג'אווה סקריפט שרצה ברגע שהיא מוגדרת. החתימה שלה תהיה כדלהלן :
+
+```js
+
+(function () {
+  // logic here
+})();
+
+
+```
+הסיבה העיקרית לשימוש בIIFFE היא לשמור על פרטיות של של נתונים מאחר שלא ניתן לגשת למשתנים שהוגדרו בתוך הIIFFE , אם ננסה נקבל שגיאה כמו בדוגמה הבאה :
+
+```js
+
+(function () {
+  var message = "IIFE";
+  console.log(message);
+})();
+console.log(message); //שגיאה : Message לא מוגדר
 
 
 
 ```
+## ש. מהם מחלקות בES6 ? 
+
+ת. בES6 , המחלקות הן בעיקר [סוכר תחבירי](https://he.wikipedia.org/wiki/%D7%A1%D7%95%D7%9B%D7%A8_%D7%AA%D7%97%D7%91%D7%99%D7%A8%D7%99) של ירושה באמצעות פרוטוטייפ .
+לדוגמה ירושה באמצעות פרוטוטייפ יכתב כך :
+
+```js
+function Bike(model, color) {
+  this.model = model;
+  this.color = color;
+}
+
+Bike.prototype.getDetails = function () {
+  return this.model + " bike has" + this.color + " color";
+};
+
+```
+
+בעוד שמחלקה בES6 תראה כך :
+
+```js
+
+class Bike {
+  constructor(color, model) {
+    this.color = color;
+    this.model = model;
+  }
+
+  getDetails() {
+    return this.model + " bike has" + this.color + " color";
+  }
+}
+
+```
+
