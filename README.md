@@ -598,7 +598,7 @@ function somemethod() {
 
 
 ```
-הסיבה העיקרית לשימוש בIIFFE היא לשמור על פרטיות של של נתונים מאחר שלא ניתן לגשת למשתנים שהוגדרו בתוך הIIFFE , אם ננסה נקבל שגיאה כמו בדוגמה הבאה :
+הסיבה העיקרית לשימוש בIIFFE היא לשמור על פרטיותם של נתונים מאחר שלא ניתן לגשת למשתנים שהוגדרו בתוך הIIFFE , אם ננסה נקבל שגיאה כמו בדוגמה הבאה :
 
 ```js
 
@@ -611,6 +611,58 @@ console.log(message); //שגיאה : Message לא מוגדר
 
 
 ```
+
+
+## ש. איך מצפינים(encode) או מפצחים (decode)כתובת URL בג׳אווה סקריפט ?
+
+ת. הפונקציה encodeURI() משמשת על מנת להצפין URL , הפונקציה מקבלת מחרוזת URL כפרמטר ומחזירה מחרוזת מוצפנת. הפונקציה decodeURI() משמשת על מנת לפצח URL .
+
+נשים לב : אם אנחנו רוצים להצפין תווים כמו 
+? : @ & = + $ #
+עלינו להשתמש בencodeURIcomponent().
+
+```js
+let uri = "employeeDetails?name=john&occupation=manager";
+let encoded_uri = encodeURI(uri);
+let decoded_uri = decodeURI(encoded_uri);
+
+```
+
+## ש. מה זה ממואיזציה (memoization)
+
+ת. ממואיזציה היא שיטת תכנות שמנסה לשפר את הביצועים של פונקצים ע״י מטמון (cache) של ערכים קודמים שהיא חישבה.
+בכל פעם שנקראת פונקציה כזו הפרמטרים שלה משמשים למפתח (to index) את המטמון. אם המידע קיים הוא יוחזר מבלי לבצע את כל הפונקציה , אחרת הפונקציה תבוצע והתוצאה תתווסף למטמון. 
+
+נראה דוגמה:
+
+```js
+const memoizAddition = () => {
+  let cache = {};
+  return (value) => {
+    if (value in cache) {
+      console.log("Fetching from cache");
+      return cache[value]; // Here, cache.value cannot be used as property name starts with the number which is not a valid JavaScript  identifier. Hence, can only be accessed using the square bracket notation.
+    } else {
+      console.log("Calculating result");
+      let result = value + 20;
+      cache[value] = result;
+      return result;
+    }
+  };
+};
+// returned function from memoizAddition
+const addition = memoizAddition();
+console.log(addition(20)); //output: 40 calculated
+console.log(addition(20)); //output: 40 cached
+
+
+
+
+
+```
+
+
+
 ## ש. מהם מחלקות בES6 ? 
 
 ת. בES6 , המחלקות הן בעיקר [סוכר תחבירי](https://he.wikipedia.org/wiki/%D7%A1%D7%95%D7%9B%D7%A8_%D7%AA%D7%97%D7%91%D7%99%D7%A8%D7%99) של ירושה באמצעות פרוטוטייפ .
