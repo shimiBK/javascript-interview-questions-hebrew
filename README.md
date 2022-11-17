@@ -34,10 +34,10 @@
 | 26  | [מהו web storage ?](#ש-מהו-web-storage-)|
 | 27  | [מהי עוגיה (Cookie) ?](#ש-מהי-עוגיה-cookie-)|
 | 28  | [למה משמשים העוגיות ? (Cookies)](#ש-למה-משמשים-העוגיות--cookies) |
-| 29  | []()|
-| 30  | []()|
-| 31  | []()|
-| 32  | []()|
+| 29  | [מה ההבדל בין localStorage לSession Storage ?](#ש-מה-ההבדל-בין-localstorage-לsession-storage-)|
+| 30  | [איך ניגשים לWeb Storage ?](#ש-איך-ניגשים-לweb-storage-)|
+| 31  | [אלו מטודות זמינות ב Session Storage ?](#ש-אלו-מטודות-זמינות-ב-session-storage-)|
+| 32  | [למה צריך Web Storage ?](#ש-למה-צריך-web-storage-)|
 | 33  | []()|
 | 34  | []()|
 | 35  | []()|
@@ -835,3 +835,50 @@ document.cookie = "username=Shimi; path=/services";
 |  תמיכה בSSL | נתמך | לא נתמך | לא נתמך
 | גודל מקסימלי של נתונים | 4KB | 5MB | 5MB
 </div>
+
+
+# ש. מה ההבדל בין localStorage לSession Storage ?
+
+ת. יש הבדל אחד המפריד בין השניים , localStorage מחזיק את הנתונים גם לאחר שהדפדפן נסגר, בעוד בSession Storage המידע נמחק לאחר סיום הסשן ( כלומר בסגירת הלשונית ) 
+
+
+# ש. איך ניגשים לWeb Storage ?
+
+ת. האובייקט Window מיישם את האובייקטים WindowLocalStorage ו- WindowSessionStorage שיש להם מאפיינים localStorage(window.localStorage) ו-sessionStorage(window.sessionStorage) בהתאמה. מאפיינים אלו יוצרים מופע של אובייקט האחסון, שדרכו ניתן להגדיר, לאחזר ולהסיר פריטי נתונים עבור תחום וסוג אחסון ספציפיים (Local או Session). לדוגמה, אתה יכול לקרוא ולכתוב על אובייקטי אחסון מקומיים כדלהלן:
+
+
+```js
+
+localStorage.setItem("logo", document.getElementById("logo").value);
+localStorage.getItem("logo");
+
+
+```
+
+
+## ש. אלו מטודות זמינות ב Session Storage ?
+
+ת. Session Storage מספק מטודות לקריאה , כתיבה ופינוי של הנתונים.
+
+```js
+
+// לשמור נתונים ל sessionStorage
+sessionStorage.setItem("key", "value");
+
+// לחלץ נתונים מה sessionStorage
+let data = sessionStorage.getItem("key");
+
+// הסרה של נתונים מה sessionStorage
+sessionStorage.removeItem("key");
+
+// הסרה של כל הנתונים מהSessionStorage
+sessionStorage.clear();
+
+
+```
+
+
+## ש. למה צריך Web Storage ?
+
+ת. Web Storage הוא מאובטח יותר וניתן לאחסן כמות גדולה של נתונים באופן מקומי , מבלי להשפיע על ביצועי האתר. בנוסף המידע לעולם לא עובר לצד השרת . משמע הוא מומלץ יותר משימוש בעוגיות.
+
