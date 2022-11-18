@@ -882,3 +882,56 @@ sessionStorage.clear();
 
 ת. Web Storage הוא מאובטח יותר וניתן לאחסן כמות גדולה של נתונים באופן מקומי , מבלי להשפיע על ביצועי האתר. בנוסף המידע לעולם לא עובר לצד השרת . משמע הוא מומלץ יותר משימוש בעוגיות.
 
+
+## ש. מהו Promise ?
+
+ת. Promise הוא אובייקט שיכול ליצר ערך יחיד מתישהו בעתיד , עם ערך פתור (Resolved) או סיבה מדוע הוא לא נפתר.
+זה יהיה אחד משלושה מצבים אפשריים : fulfilled,reject או pending.
+
+הסינטקס של Promise נראת כדלהלן:
+
+```js
+
+const promise = new Promise(function (resolve, reject) {
+  // promise description
+});
+
+
+```
+
+השימוש של Promise יהיה כדלהלן :
+
+```js
+
+const promise = new Promise(
+  (resolve) => {
+    setTimeout(() => {
+      resolve("I'm a Promise!");
+    }, 5000);
+  },
+  (reject) => {}
+);
+
+promise.then((value) => console.log(value));
+
+
+```
+
+
+נתאר את פעולת הPromise באמצעות דיאגרמה
+
+![image](https://user-images.githubusercontent.com/37695804/202737047-02e83400-5d86-4171-bcc8-10db1d4a784e.png)
+
+
+## ש. למה אנחנו צריכים Promise ?
+
+ת. Promises משמשים לטיפול באופרציות אסינכרוניות , הם גישה אלטרנטיבית לCallbacks ע"י הפחתה של הCallback Hell וכמו כן הקוד באמצעות קריא ונקי יותר.
+
+
+## ש. מהם שלושת המצבים של Promise ?
+
+ת. כאמור לPromises יש שלושה מצבים :
+
+* ממתין (pending) - זהו המצב ההתחלתי , הפרומיס לא קוים (fulfilled) ולא נדחה (rejected)
+* קוים (fulfilled) -  משמעותו שהפעולה התבצעה בהצלחה
+* נדחה (rejected) -  משמעותו שהפעולה נכשלה.
