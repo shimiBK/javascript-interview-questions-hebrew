@@ -935,3 +935,27 @@ promise.then((value) => console.log(value));
 * ממתין (pending) - זהו המצב ההתחלתי , הפרומיס לא קוים (fulfilled) ולא נדחה (rejected)
 * קוים (fulfilled) -  משמעותו שהפעולה התבצעה בהצלחה
 * נדחה (rejected) -  משמעותו שהפעולה נכשלה.
+
+
+## ש. מהי פונקציית Callback ? 
+
+ת. פונקציית Callback היא פונקציה שמועברת לפונקציה אחרת בתור פרמטר. פונקציה זו מופעלת בתוך הפונקציה החיצונית כדי להשלים פעולה. נראה דוגמה לאיך להשתמש בה
+
+
+```js
+
+function callbackFunction(name) {
+  console.log("Hello " + name);
+}
+
+function outerFunction(callback) {
+  let name = prompt("Please enter your name.");
+  callback(name);
+}
+
+outerFunction(callbackFunction);
+
+```
+
+בדוגמה לעיל לאחר שהמשתמש יקליד את שמו תקרא הפונקציה callbackFunction  עם השם שהוא הקליד ויודפס Hello + Users Name .
+
