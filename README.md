@@ -959,3 +959,99 @@ outerFunction(callbackFunction);
 
 בדוגמה לעיל לאחר שהמשתמש יקליד את שמו תקרא הפונקציה callbackFunction  עם השם שהוא הקליד ויודפס Hello + Users Name .
 
+## ש. למה אנחנו צריכים פונקציות Callback ?
+
+ת. אנו צריכים את הפונקציות הללו מאחר וג'אווה סקריפט היא שפה מונחת אירועים , משמע שבמקום לחכות לתוגבה ג'אווה סקריפט תמשיך לבצע בעוד היא מחכה לאירועים נוספים. 
+נראה דוגמה שבה הפונקציה הראשונה תחקה קריאה לAPI והפונקציה השנייה תדפיס את ההודעה :
+
+```js
+
+function firstFunction() {
+  // a. נחקה השהייה בקוד
+  setTimeout(function () {
+    console.log("First function called");
+  }, 1000);
+}
+function secondFunction() {
+  console.log("Second function called");
+}
+firstFunction();
+secondFunction();
+
+Output;
+// Second function called
+// First function called
+
+
+```
+ככפי שאנחנו רואים בדוגמה לעיל , ג'אווה סקריפט לא חיכתה לתגובה של הפונקציה הראשונה ושאר הקוד בוצע. אזי פונקציות Callback משמשות כדי לוודא שקוד מסויים לא מתבצע לפני שקוד אחר סיים את ביצועו.
+
+## ש. מהו Callback Hell ?
+
+ת. מספר Callbacks מקוננים אחד מתחת לשני אשר יוצרים צורה של פירמידה , כל Callback תלוי/מחכה לCallback הקודם מה שגורם ליצרת פירמידה כאמור, דבר המקשה על קריאות הקוד והיכולת לתחזק אותו.
+
+
+```js
+
+async1(function(){
+    async2(function(){
+        async3(function(){
+            async4(function(){
+                ....
+            });
+        });
+    });
+});
+
+
+```
+
+
+## ש. מהו שרשור Promise ? (Promise Chaining) 
+ת. תהליך של ביצוע סדרת משימות אסינכרוניות אחד אחרי השני בעזרת Promise נקרא גם Promise Chaining. נראה דוגמה : 
+
+```js 
+
+new Promise(function (resolve, reject) {
+  setTimeout(() => resolve(1), 1000);
+})
+  .then(function (result) {
+    console.log(result); // 1
+    return result * 2;
+  })
+  .then(function (result) {
+    console.log(result); // 2
+    return result * 3;
+  })
+  .then(function (result) {
+    console.log(result); // 6
+    return result * 4;
+  });
+
+
+```
+
+מה קרה כאן בעצם ? 
+1.הPromise ההתחלתי נפתר (Resolves) בתוך שנייה ( 1000 מילישניות) 
+<br>
+2.לאחר מכן הhandler של .then נקרא ע"י הדפסת התוצאה (1) ואז מחזיר Promise עם כפל התוצאה.
+<br>
+3.לאחר מכן הערך עובר ל.then הבא ע"י הדפסת התוצאה (2) ואז מחזיר Promise עם התוצאה * 3.
+<br>
+4.לבסוף הערך עובר ל.then האחרון ע"י הדפסת התואה (6) ומחזיר Promise עם התוצאה * 4 
+
+## ש. מה זה promise.all ?
+
+ת. Promise.all זהו Promise שמקבל מערך של Promise כקלט ( איטרבילי ) , והוא נפתר ( Resolved )  כאשר כל הPromises נפתרים , או שאחד מהם נדחה. נראה דוגמה לסינטקס :
+
+```js
+
+Promise.all([Promise1, Promise2, Promise3]) .then(result) => {
+console.log(result)
+}) 
+.catch(error => 
+console.log(`Error in promises ${error}`
+))
+
+```
+
