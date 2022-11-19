@@ -1031,7 +1031,8 @@ new Promise(function (resolve, reject) {
 
 ```
 
-מה קרה כאן בעצם ? 
+מה קרה כאן בעצם ?
+<br>
 1.הPromise ההתחלתי נפתר (Resolves) בתוך שנייה ( 1000 מילישניות) 
 <br>
 2.לאחר מכן הhandler של .then נקרא ע"י הדפסת התוצאה (1) ואז מחזיר Promise עם כפל התוצאה.
@@ -1055,3 +1056,144 @@ console.log(`Error in promises ${error}`
 
 ```
 
+## ש. מה המטרה של מטודת Race בPromise ?
+
+ת. Promise.race() תחזיר את מופע של הPromise הראשון שנפתר או נדחה . נראה דוגמה שבה Promise2 נפתר ראשון :
+
+```js
+
+var promise1 = new Promise(function (resolve, reject) {
+  setTimeout(resolve, 500, "one");
+});
+var promise2 = new Promise(function (resolve, reject) {
+  setTimeout(resolve, 100, "two");
+});
+
+Promise.race([promise1, promise2]).then(function (value) {
+  console.log(value); // "two" // שני הPromises יפתרו אבל promise2 מהיר יותר
+});
+
+
+```
+
+## ש. מה היתרונות והחסרונות של Promises בהשוואה לCallbacks ?
+
+יתרונות : 
+1.אנחנו נמנעים מהCallback Hell .
+<br>
+2.קל לטפל בסדרת פעולות אסינכרוניות עם .then
+<br>
+3.קל לכתוב קוד אסינכרוני מקבילי עם Promise.all().
+<br>
+4.פותר בעיות שכיחות של Callbacks.
+
+חסרונות:
+1.הופך את הקוד לקצת מסובך יותר.
+2. צריך לטעון Polyfill אם ES6 לא נתמך.
+
+
+## ש. למה משמש סימן קריאה כפול ? 
+
+ת. סימן קריאה כפול או שלילה (!!) , מוודא שהערך המוחזר הוא בוליאני. אם הערך הוא שקרי ( כלומר 0,null,undefined וכ'ו) , אז זה יהיה שקר , אחרת אמת. 
+נראה את השימוש :
+
+```js
+
+!!false // מחזיר שקר
+!!true // מחזיר אמת
+
+!!0 // מחזיר שקר - אפס הוא ערך שקרי
+!!1 // מחזיר אמת - כל ערך שגדול מ0 הוא ערך אמת
+
+!!"" // מחזיר שקר - מחרוזת ריקה היא ערך שקרי
+!!undefined // מחזיר שקר - undefined הוא ערך שקרי
+!!null // מחזיר שקר - null הוא ערך שקרי
+
+!!{} // מחזיר אמת - אובייקט ריק הוא ערך אמת
+!![] // מחזיר אמת - מערך ריק הוא ערך אמת
+
+const points = 40
+!!points // מחזיר אמת
+
+const city = “ “
+!!city מחזיר שקר
+
+
+```
+
+## ש. למה משמש אופרטור המחיקה? ( delete operator ) 
+
+ת. הוא משמש למחוק תכונה ואת הערך שלה.
+
+```js
+
+var user = { name: "Shimi", age: 28 };
+delete user.age;
+
+console.log(user); // {name: "Shimi"}
+
+
+```
+
+
+## ש. למה משמש האופרטור typeof ?
+
+ת. אופרטור זה משמש כדי למצוא סוג של משתנה , הוא מחזיר סוג של המשתנה או הביטוי.
+
+```js
+
+typeof "John Abraham"; // Returns "string"
+typeof (1 + 2); // Returns "number"
+
+```
+
+
+
+## ש.מהי התכונה undefined ? 
+
+ת. תכונת הundefined מציין שלא הושם ערך למשתנה , או שהוא הוצהר אבל לא אותחל בכלל. 
+הסוג של undefined הוא undefined גם כן.
+
+
+```js
+
+var user; // הערך הוא undefined , הסוג גם כן undefined
+console.log(typeof user); //undefined
+
+```
+
+אפשר "לרוקן" כל מתשנה ע"י מתן ערך undefined :
+
+```js
+
+user = undefined;
+
+```
+
+
+## ש. מהו הערך null ?
+
+ת. הערך null  מייצג היעדר מכוון של ערך . זהו אחד מהערכים הפרימיטיביים של ג'אווה סקריפט . הסוג של null הוא אובייקט . גם כאן אפשר "לרוקן" משתנה ע"י מתן הערך null.
+
+
+```js
+
+var user = null;
+console.log(typeof user); //object
+
+```
+
+
+## ש. מה ההבדל בין null וundefined ?
+
+<div dir="rtl">
+
+| Null      | Undefined |
+| ----------- | ----------- |
+| זהו ערך המציין שהמשתנה לא מצביע לשום אובייקט     |      מציין שמשתנה הוכרז אבל לא הושם לו ערך   |
+| הסוג שלו הוא אובייקט   |   הסוג שלו הוא Undefined     |
+|  הundefined הוא ערך שהוא פרימיטיבי שניתן כאשר למשתנה לא הושם ערך , כאמור  |  הnull הוא משתנה פרימיטיבי שמייצג Null,ריק או רפרנס לא קיים    |
+| מציין היעדר ערך למשתנה | מציין היעדר של המשתנה עצמו|
+| מומר לאפס כאשר מתבצעים פעולות פרימיטיביות | מומר לNaN כאשר מתבצעים פעולות פרימיטיביות|
+
+</div>
