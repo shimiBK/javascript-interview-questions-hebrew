@@ -14,7 +14,7 @@
 | 6   | [למה משמשת הפונקציה Splice ?](#ש-למה-משמשת-הפונקציה-splice-)|
 | 7   | [מה ההבדל בין האופרטר == ל===?](#ש-מה-ההבדל-בין-האופרטר--ל)|
 | 8   | [מהם Arrow functions ?](#ש-מהם-arrow-functions-)|
-| 9   | [מהו first class function ?](#ש-מהו-first-class-function-)|
+| 9   | [מהי first class function ?](#ש-מהו-first-class-function-)|
 | 10  | [מהי high order function?](#ש-מהי-high-order-function)|
 | 11  | [מהי פונקציה אונרית (unary function) ?](#ש-מהי-פונקציה-אונרית-unary-function-)|
 | 12  | [מהי Currying function ?](#ש-מהי-currying-function-)|
@@ -365,7 +365,7 @@ hello = function() {
 
 ```
 
-## ש. מהו first class function ?
+## ש. מהי first class function ?
 
 בג'אווה סקריפט פונקציות הן אובייקטים first class . המשמעות של פונקציות שהן first class הוא שבשפה מתייחסים אליהן כמו כל משתנה אחר.
 
